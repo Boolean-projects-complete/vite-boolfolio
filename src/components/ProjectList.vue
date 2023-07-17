@@ -1,11 +1,12 @@
 <script>
 import axios from 'axios';
-import ProjectCard from './ProjectCard.Vue';
+import ProjectCard from './Projects/ProjectCard.vue';
 
 export default {
   components: {
     ProjectCard,
   },
+
   data() {
     return {
       arrProjects: [],
@@ -60,11 +61,14 @@ export default {
 
 <template>
   <main>
-    <div class="container">
-      <ProjectCard v-for="project in arrProjects" :key="project.id" :project="project" />
+    <div class="container my-5">
+      <div class="row row-cols-3 row-cols-sm-2 row-cols-md-3">
+        <ProjectCard v-for="project in arrProjects" :key="project.id" :project="project" />
+      </div>
+
     </div>
   </main>
-  <div class="container d-flex justify-content-end" style="padding-right: 3.5rem;">
+  <div class="container d-flex justify-content-end">
     <nav>
       <ul class="pagination">
         <li class="page-item">

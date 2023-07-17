@@ -1,20 +1,28 @@
 <script>
-import ProjectList from './components/ProjectList.vue';
+import AppHeader from './components/AppHeader.vue';
+import AppNav from './components/AppNav.vue';
+import AppFooter from './components/AppFooter.vue'
 
 export default {
   components: {
-    ProjectList,
+    AppNav,
+    AppFooter,
+    AppHeader,
   }
 };
 </script>
 
 <template>
-  <header class="bg-dark py-3">
-    <div class="container">
-      <h1 class="text-center text-primary">Boolean Projects Git Hub</h1>
-    </div>
+  <header>
+    <AppHeader />
+    <AppNav />
   </header>
-  <ProjectList />
+
+  <div class="container_main">
+    <router-view></router-view>
+  </div>
+
+  <AppFooter />
 </template>
 
 <style lang="scss">

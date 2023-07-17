@@ -1,0 +1,46 @@
+<script>
+export default {
+    props: {
+        project: {
+            type: Object,
+            // required: true,
+        }
+    }
+};
+</script>
+
+<template>
+    <div class="col">
+        <div class="card h-100">
+            <div class="h-100">
+                <img :src="'http://localhost:8000/storage/' + project.image" class="image img-fluid" alt="">
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title" style="font-weight: 700;">{{ project.title }}</h5>
+                <p class="card-text">{{ project.description }}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><span style="font-weight: 700;">Author: </span> {{ project.author }}
+                </li>
+                <li class="list-group-item"><span style="font-weight: 700;">Creation Date: </span> {{
+                    project.creation_date }}</li>
+                <li class="list-group-item"><span style="font-weight: 700;">Last Update: </span>{{
+                    project.last_update }}</li>
+                <li class="list-group-item"><span style="font-weight: 700;">Collaborators: </span>{{
+                    project.collaborators }}</li>
+                <li class="list-group-item"><span style="font-weight: 700;">Technologies: </span>
+                    <span v-for="technology in project.technologies" :key="technology.name">
+                        {{ technology.name }},
+                    </span>
+                </li>
+                <li class="list-group-item"><span style="font-weight: 700;">Type: </span>{{ project.type.name }}</li>
+            </ul>
+            <div class="card-body">
+                <a :href="project.link_github" class="card-link">Link - Github</a>
+            </div>
+        </div>
+    </div>
+</template>
+
+<style lang="scss" scoped></style>
