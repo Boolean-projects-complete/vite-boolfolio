@@ -1,51 +1,90 @@
 <script>
 import axios from 'axios';
+import ProjectCard from './ProjectCard.Vue';
 
 export default {
-    data() {
-        return {
-            arrProject: [],
-        };
+  components: {
+    ProjectCard,
+  },
+  data() {
+    return {
+      arrProjects: [],
+      currentPage: 1,
+      nPages: 0,
+      activePage: 1,
+    };
+  },
+  methods: {
+    changePage(page) {
+      this.currentPage = page;
+      this.getProjects();
     },
-    created(){
-        //richiesta dati al server
-        axios.get('http://localhost:8000/api/projects', {
-            params: {
-                page: this.Npage
-            },
+
+    nextPage() {
+      this.currentPage++;
+      this.getProjects();
+    },
+
+    previousPage() {
+      this.currentPage--;
+      this.getProjects();
+    },
+
+    getProjects() {
+      axios
+        .get('http://localhost:8000/api/projects', {
+          params: {
+            page: this.currentPage,
+          },
         })
-        .then(response => (this.arrProject = response.data.data))
+        .then(response => {
+          this.arrProjects = response.data.data;
+          this.nPages = response.data.last_page;
+        });
     }
+  },
+  created() {
+    axios
+      .get('http://localhost:8000/api/projects', {
+        params: {
+          page: this.currentPage,
+        }
+      })
+      .then(response => {
+        this.arrProjects = response.data.data;
+        this.nPages = response.data.last_page;
+      });
+  },
 };
 </script>
 
 <template>
+  <main>
+    <div class="container">
+      <h2 class="text-center">My Projects</h2>
+      <ProjectCard v-for="project in arrProjects" :key="project.id" :project="project" />
+    </div>
+  </main>
+  <div class="container d-flex justify-content-end" style="padding-right: 3.5rem;">
+    <nav>
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="#" @click="previousPage()">Previous</a>
+        </li>
 
-<h5>questi sono i nostri post</h5>
-<ul>
-    <li v-for="project in arrProject" :key="project.id">{{ project.title }}</li>
-</ul>
+        <li v-for="page in nPages" :key="page" class="page-item" :class="{ active: page == currentPage }">
+          <a class="page-link" href="#" @click="changePage(page)">
+            {{ page }}
+          </a>
+        </li>
 
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+        <li class="page-item">
+          <a class="page-link" href="#" @click="nextPage()">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </template>
 
 
-<style>
-
-</style>
+<style></style>
