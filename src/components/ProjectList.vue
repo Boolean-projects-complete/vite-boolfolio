@@ -61,7 +61,6 @@ export default {
 <template>
   <main>
     <div class="container">
-      <h2 class="text-center">My Projects</h2>
       <ProjectCard v-for="project in arrProjects" :key="project.id" :project="project" />
     </div>
   </main>
