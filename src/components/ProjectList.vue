@@ -18,24 +18,12 @@ export default {
     };
   },
   methods: {
-    // changePage(page) {
-    //   this.currentPage = page;
-    //   this.getProjects();
-    // },
-
-    // nextPage() {
-    //   this.currentPage++;
-    //   this.getProjects();
-    // },
 
     toNextPage() {
       this.currentPage != this.nPages ? this.currentPage++ : null;
     },
 
-    // previousPage() {
-    //   this.currentPage--;
-    //   this.getProjects();
-    // },
+
 
     toPrevPage() {
       this.currentPage != 1 ? this.currentPage-- : null;
@@ -43,40 +31,24 @@ export default {
 
 
     getProjects() {
-      // axios
-      //   .get('http://localhost:8000/api/projects', {
-      //     params: {
-      //       page: this.currentPage,
-      //     },
-      //   })
-      //   .then(response => {
-      //     this.arrProjects = response.data.data;
-      //     this.nPages = response.data.last_page;
-      //   });
-
+      this.loader = true;
       axios
-        .get(this.store.baseUrl + 'api/projects', {
+        .get("http://localhost:8000/api/projects", {
           params: {
             page: this.currentPage,
+            // se sto già in prjects.index non esegue il craeated e non aggiorna la pagina
+            q: new URLSearchParams(window.location.search).get("q"),
           },
         })
-        .then(response => {
-          this.arrProjects = response.data.data;
-          this.nPages = response.data.last_page;
+        .then((response) => {
+          this.arrProjects = response.data.results.data;
+          this.nPages = response.data.results.last_page;
+          this.loader = false;
         });
-    }
+    },
   },
   created() {
-    // axios
-    //   .get('http://localhost:8000/api/projects', {
-    //     params: {
-    //       page: this.currentPage,
-    //     }
-    //   })
-    //   .then(response => {
-    //     this.arrProjects = response.data.data;
-    //     this.nPages = response.data.last_page;
-    //   });
+
 
     this.getProjects();
   },

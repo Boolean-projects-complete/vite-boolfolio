@@ -44,3 +44,48 @@ export default {
 </template>
 
 <style lang="scss" scoped></style>
+
+
+// axios
+      //   .get('http://localhost:8000/api/projects', {
+      //     params: {
+      //       page: this.currentPage,
+      //     },
+      //   })
+      //   .then(response => {
+      //     this.arrProjects = response.data.data;
+      //     this.nPages = response.data.last_page;
+      //   });
+
+
+
+
+// axios
+    //   .get('http://localhost:8000/api/projects', {
+    //     params: {
+    //       page: this.currentPage,
+    //     }
+    //   })
+    //   .then(response => {
+    //     this.arrProjects = response.data.data;
+    //     this.nPages = response.data.last_page;
+    //   });
+
+
+
+    // changePage(page) {
+    //   this.currentPage = page;
+    //   this.getProjects();
+    // },
+
+    // nextPage() {
+    //   this.currentPage++;
+    //   this.getProjects();
+    // },
+
+
+
+    // previousPage() {
+    //   this.currentPage--;
+    //   this.getProjects();
+    // },
